@@ -1,0 +1,40 @@
+<!-- search field -->
+<input type="text" [(ngModel)]="searchTerm" placeholder="Search Gyms..." />
+
+<!-- gym list -->
+<ul>
+  <li *ngFor="let gym of filteredGyms" (click)="selectGym(gym)">
+    {{ gym.name }} - {{ gym.location }}
+  </li>
+</ul>
+
+<!-- gym details -->
+<app-gym-details *ngIf="selectedGym" [gym]="selectedGym"></app-gym-details>
+
+<!-- form to add new gym -->
+<h2>Add a New Gym</h2>
+<form (ngSubmit)="onSubmit()" #gymForm="ngForm">
+  <div>
+    <label for="name">Gym Name:</label>
+    <input type="text" id="name" [(ngModel)]="newGym.name" name="name" required/>
+  </div>
+
+  <div>
+    <label for="location">Location:</label>
+    <input type="text" id="location" [(ngModel)]="newGym.location" name="location" required />
+  </div>
+
+  <div>
+    <label>Equipment:</label>
+    <div *ngFor="let equipment of availableEquipment">
+      <input 
+        type="checkbox" 
+        [value]="equipment" 
+        [(ngModel)]="selectedEquipment[equipment]"
+        [ngModelOptions]="{standalone: true}">
+      {{ equipment }}
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!gymForm.form.valid">Add Gym</button>
+</form>

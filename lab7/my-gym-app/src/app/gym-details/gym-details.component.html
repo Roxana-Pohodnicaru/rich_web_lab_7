@@ -1,0 +1,10 @@
+<!-- only show information if gym is clicked -->
+<div *ngIf="gym">
+    <h2>{{ gym.name }}</h2>
+
+    <p>Location: {{ gym.location }}</p>
+
+    <ul>
+      <li *ngFor="let item of gym.equipment">{{ item }}</li>
+    </ul>
+</div>
